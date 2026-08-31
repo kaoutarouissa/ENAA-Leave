@@ -9,36 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'telephone' => 'nullable|string|max:20',
-            'poste' => 'nullable|string|max:255',
-            'role' => 'nullable|in:employe,manager,rh',
-        ]);
 
-        $user = User::create([
-            'nom' => $validated['nom'],
-            'prenom' => $validated['prenom'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'telephone' => $validated['telephone'] ?? null,
-            'poste' => $validated['poste'] ?? null,
-            'role' => $validated['role'] ?? 'employe',
-        ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Compte créé avec succès',
-            'token' => $token,
-            'user' => $user,
-        ], 201);
-    }
 
     public function login(Request $request)
     {
@@ -48,12 +19,11 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $credentials['email'])->first();
-
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['Les identifiants sont incorrects.'],
-            ]);
-        }
+                return response()->json([
+                    'message' => 'Les identifiants sont incorrects.'
+                ], 401);
+            }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

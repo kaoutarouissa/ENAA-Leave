@@ -16,21 +16,21 @@ class UserSeeder extends Seeder
     {
         //
         User::create([
-            'name' => 'Employe',
+            'name' => 'Ahmed',
             'email' => 'employe@enaa.ma',
             'password' => Hash::make('password123'),
             'role' => 'employe',
         ]);
 
         User::create([
-            'name' => 'Manager',
+            'name' => 'Ali',
             'email' => 'manager@enaa.ma',
             'password' => Hash::make('password123'),
             'role' => 'manager',
         ]);
 
         User::create([
-            'name' => 'RH',
+            'name' => 'Fatima',
             'email' => 'rh@enaa.ma',
             'password' => Hash::make('password123'),
             'role' => 'rh',

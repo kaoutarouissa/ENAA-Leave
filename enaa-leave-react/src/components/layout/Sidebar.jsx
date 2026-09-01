@@ -1,4 +1,18 @@
 export default function Sidebar() {
+    const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+        await logoutUser();
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        navigate("/login");
+    } catch (error) {
+        console.error("Erreur lors de la déconnexion", error);
+    }
+};
     return (
         <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200">
             
@@ -44,13 +58,14 @@ export default function Sidebar() {
             </nav>
 
             {/* Logout */}
+            <form onSubmit={handleLogout}>
             <div className="absolute bottom-5 left-4 right-4">
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50">
+                <button type="submit" className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50">
                     🚪
                     <span>Déconnexion</span>
                 </button>
             </div>
-
+            </form>
         </aside>
     );
 }

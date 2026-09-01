@@ -34,3 +34,16 @@ export const loginUser = async (email, password) => {
         user,
     };
 };
+export const logoutUser = () => {
+    const token = localStorage.getItem("token");
+
+    return axios.post(
+        "/logout",
+        {},
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+};

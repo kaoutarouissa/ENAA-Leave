@@ -7,7 +7,7 @@ import Intro from "./pages/Intro";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import ManagerDashboard from "./pages/manager/ManagerDashboard";
 import RhDashboard from "./pages/Rh/RhDashboard";
-
+import Dashboardformateur from "./pages/Formateur/formateur"
 function App() {
   return (
     <BrowserRouter>
@@ -41,6 +41,14 @@ function App() {
             element={
               <DashboardShell>
                 <RhDashboard />
+              </DashboardShell>
+            }
+          />
+          <Route
+            path="/formateur/dashboard"
+            element={
+              <DashboardShell>
+                <Dashboardformateur />
               </DashboardShell>
             }
           />

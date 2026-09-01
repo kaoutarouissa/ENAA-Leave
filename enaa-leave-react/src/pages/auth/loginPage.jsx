@@ -28,7 +28,9 @@ switch (user.role) {
     case "rh":
       navigate("/rh/dashboard", { replace: true });
         break;
-
+     case "formateur":
+      navigate("/formateur/dashboard", { replace: true });
+        break;
     default:
         console.error("Rôle inconnu :", user.role);
 }

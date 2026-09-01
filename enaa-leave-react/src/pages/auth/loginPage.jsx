@@ -14,7 +14,24 @@ export default function LoginPage() {
     try {
       const data = await loginUser(email, password);
       console.log("LOGIN :", data);
-      navigate("/dashboard");
+      const user = data.user;
+
+switch (user.role) {
+    case "employe":
+      navigate("/employee/dashboard", { replace: true });
+        break;
+
+    case "manager":
+      navigate("/manager/dashboard", { replace: true });
+        break;
+
+    case "rh":
+      navigate("/rh/dashboard", { replace: true });
+        break;
+
+    default:
+        console.error("Rôle inconnu :", user.role);
+}
     } catch (error) {
       console.error(error);
     }

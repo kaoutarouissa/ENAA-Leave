@@ -34,16 +34,7 @@ export const loginUser = async (email, password) => {
         user,
     };
 };
-export const logoutUser = () => {
-    const token = localStorage.getItem("token");
-
-    return axios.post(
-        "/logout",
-        {},
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
-};
+export const logoutUser = async () => {
+     const token = localStorage.getItem("token"); 
+     const response = await fetch(`${API_URL}/logout`, { method: "POST", headers: { Accept: "application/json", Authorization: `Bearer ${token}`, }, });
+      const data = await response.json()} 

@@ -2,61 +2,52 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../service/api"
 
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
+export default function LoginPage() {
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
 
     try {
       const data = await loginUser(email, password);
-
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
+      console.log("LOGIN :", data);
       navigate("/dashboard");
     } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
+      console.error(error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6">
+
       <div className="w-full max-w-md">
-        {/* Logo / Brand */}
-        <div className="text-center mb-8">
-          <div className="mx-auto w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-200">
-            <span className="text-white text-2xl font-bold">L</span>
+
+        {/* Logo */}
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-600 text-2xl font-bold text-white">
+            E
           </div>
 
-          <h1 className="mt-4 text-2xl font-bold text-gray-800">Leave</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Bienvenue
+          </h1>
 
-          <p className="text-gray-500 mt-1">Gestion des congés</p>
+          <p className="mt-2 text-gray-500">
+            Connectez-vous à votre espace ENNA Leave
+          </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-800">Connexion</h2>
+        <div className="rounded-2xl bg-white p-8 shadow-xl">
 
-            <p className="text-sm text-gray-500 mt-1">
-              Connectez-vous à votre espace
-            </p>
-          </div>
+          <form onSubmit={handleLogin} className="space-y-5">
 
-          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Adresse email
               </label>
 
@@ -64,15 +55,15 @@ function Login() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="exemple@email.com"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                placeholder="exemple@enna.dz"
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
                 required
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Mot de passe
               </label>
 
@@ -81,35 +72,33 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-100"
                 required
               />
             </div>
 
-            {/* Error */}
-            {error && (
-              <div className="bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3 rounded-xl">
-                {error}
-              </div>
-            )}
-
             {/* Button */}
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-300 text-white font-semibold py-3 rounded-xl transition shadow-sm"
+              className="w-full rounded-xl bg-green-600 py-3.5 font-semibold text-white transition hover:bg-green-700 active:scale-[0.98]"
             >
-              {loading ? "Connexion..." : "Se connecter"}
+              Se connecter
             </button>
+
           </form>
+
         </div>
 
-        <p className="text-center text-xs text-gray-400 mt-6">
-          © 2026 Leave — Gestion des congés
+        <p className="mt-6 text-center text-sm text-gray-400">
+          © 2026 ENNA Leave
         </p>
+
       </div>
     </div>
   );
 }
 
-export default Login;
+
+
+
+

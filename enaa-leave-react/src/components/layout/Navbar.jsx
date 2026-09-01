@@ -1,6 +1,8 @@
 export default function Navbar() {
     const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
 
+console.log("hbgh",user,token)
     return (
         <header className="fixed top-0 left-64 right-0 h-20 bg-white border-b border-gray-200 px-8 flex items-center justify-between">
 

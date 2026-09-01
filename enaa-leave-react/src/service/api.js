@@ -19,5 +19,18 @@ export const loginUser = async (email, password) => {
         throw new Error(data.message || "Erreur de connexion");
     }
 
-    return data;
+    const user = data.user ?? {
+        name: data.name || data.email || "Utilisateur",
+        email: data.email || email,
+        role: data.role || "Employé",
+    };
+
+    localStorage.setItem("token", data.token);
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    return {
+        ...data,
+        user,
+    };
 };

@@ -27,10 +27,17 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        $userPayload = [
+            'id' => $user->id,
+            'name' => $user->name ?: $user->email,
+            'email' => $user->email,
+            'role' => $user->role,
+        ];
+
         return response()->json([
             'message' => 'Connexion réussie',
             'token' => $token,
-            'user' => $user,
+            'user' => $userPayload,
         ]);
     }
 

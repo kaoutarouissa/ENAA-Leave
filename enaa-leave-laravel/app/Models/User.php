@@ -25,6 +25,25 @@ class User extends Authenticatable
         'role'
     ];
 
+    public function soldesConge()
+    {
+        return $this->hasMany(SoldeConge::class, 'user_id');
+    }
+
+    public function demandesConge()
+    {
+        return $this->hasMany(DemandeConge::class, 'user_id');
+    }
+
+    public function solutionsRemplacement()
+    {
+        return $this->hasMany(Solution::class, 'remplacant_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(NotificationConge::class, 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

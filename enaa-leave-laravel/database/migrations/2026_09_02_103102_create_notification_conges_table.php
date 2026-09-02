@@ -10,15 +10,19 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('solde_conges', function (Blueprint $table) {
+        Schema::create('notification_conges', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
+            $table->foreignId('demande_id')
+                ->constrained('demandes_conge')
+                ->cascadeOnDelete();
+
+            $table->text('description');
+
+            $table->dateTime('date_envoyee');
+
+            $table->foreignId('employe_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
-            $table->decimal('jours_disponibles', 5, 2)->default(0);
-            $table->decimal('jours_pris', 5, 2)->default(0);
-            $table->decimal('jours_restants', 5, 2)->default(0);
-            $table->string('type_conge', 100);
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('solde_conges');
+        Schema::dropIfExists('notification_conges');
     }
 };

@@ -15,7 +15,8 @@ class DemandeConge extends Model
     'date_demande',
     'motif',
     'statuts',
-    'piece_jointe'
+    'piece_jointe',
+    'format_journee'
 ];
      protected $table = 'demandes_conge';
     public function employe()

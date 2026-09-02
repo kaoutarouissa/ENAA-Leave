@@ -12,13 +12,9 @@ class DemandeCongeController extends Controller
     public function index()
     {
         //
-        $demandes = DemandeConge::with([
-            'employe',
-            'solutions',
-            'notifications'
-        ])->get();
+       $demandes = DemandeConge::where('user_id', auth()->id())->get();
 
-        return response()->json($demandes);
+    return response()->json($demandes);
     }
 
     /**
@@ -36,7 +32,7 @@ class DemandeCongeController extends Controller
             'format_journee' => 'required|in:complete,matin,apres_midi',
         ]);
 
-        $validated['user_id'] = auth();
+        $validated['user_id'] = auth()->id();
         $validated['date_demande'] = now();
         $validated['status'] = 'en_attente';
 

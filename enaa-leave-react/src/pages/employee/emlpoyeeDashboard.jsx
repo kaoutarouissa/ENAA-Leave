@@ -222,6 +222,146 @@ export default function Dashboard() {
             ></textarea>
           </div>
 
+
+{/* ================= FORMATEUR ================= */}
+{user?.role === "formateur" && (
+  <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-6">
+
+    {/* Titre */}
+    <div className="mb-5">
+      <h3 className="text-lg font-semibold text-gray-800">
+        Organisation des cours et évaluations
+      </h3>
+
+      <p className="mt-1 text-sm text-gray-500">
+        Pour une absence en tant que formateur, veuillez choisir un
+        collègue remplaçant ou proposer des dates de rattrapage pour
+        les modules impactés.
+      </p>
+    </div>
+
+    {/* Collègue remplaçant */}
+    <div className="mb-6">
+      <label className="mb-2 block text-sm font-medium text-gray-700">
+        Collègue remplaçant
+      </label>
+
+      <select
+        name="remplacant_id"
+        value={formData.remplacant_id}
+        onChange={handleChange}
+        className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm
+                   outline-none transition
+                   focus:border-green-500 focus:ring-2 focus:ring-green-100"
+      >
+        <option value="">
+          Sélectionner un collègue
+        </option>
+
+        {collegues.map((collegue) => (
+          <option key={collegue.id} value={collegue.id}>
+            {collegue.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    {/* OU */}
+    <div className="mb-6 flex items-center gap-4">
+      <div className="h-px flex-1 bg-gray-200"></div>
+
+      <span className="text-xs font-medium uppercase text-gray-400">
+        ou
+      </span>
+
+      <div className="h-px flex-1 bg-gray-200"></div>
+    </div>
+
+    {/* Dates de rattrapage */}
+    <div>
+      <label className="mb-3 block text-sm font-medium text-gray-700">
+        Dates de rattrapage
+      </label>
+
+      <div className="space-y-4">
+
+        {/* Module */}
+        <div>
+          <label className="mb-2 block text-xs font-medium text-gray-500">
+            Module impacté
+          </label>
+
+          <select
+            name="module_id"
+            value={formData.module_id}
+            onChange={handleChange}
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm
+                       outline-none transition
+                       focus:border-green-500 focus:ring-2 focus:ring-green-100"
+          >
+            <option value="">
+              Sélectionner un module
+            </option>
+
+            {modules.map((module) => (
+              <option key={module.id} value={module.id}>
+                {module.nom}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Date */}
+        <div>
+          <label className="mb-2 block text-xs font-medium text-gray-500">
+            Date proposée
+          </label>
+
+          <input
+            type="date"
+            name="date_rattrapage"
+            value={formData.date_rattrapage}
+            onChange={handleChange}
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm
+                       outline-none transition
+                       focus:border-green-500 focus:ring-2 focus:ring-green-100"
+          />
+        </div>
+
+        {/* Heure */}
+        <div>
+          <label className="mb-2 block text-xs font-medium text-gray-500">
+            Heure proposée
+          </label>
+
+          <input
+            type="time"
+            name="heure_rattrapage"
+            value={formData.heure_rattrapage}
+            onChange={handleChange}
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm
+                       outline-none transition
+                       focus:border-green-500 focus:ring-2 focus:ring-green-100"
+          />
+        </div>
+
+      </div>
+    </div>
+
+    {/* Information */}
+    <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50 p-4">
+      <div className="flex gap-3">
+        <span className="text-blue-500">ℹ️</span>
+
+        <p className="text-sm text-blue-700">
+          Les modules concernés par votre absence doivent être
+          remplacés ou faire l'objet d'une séance de rattrapage.
+        </p>
+      </div>
+    </div>
+
+  </div>
+)}
           <div className="p-4 bg-slate-50 border border-dashed border-slate-300 rounded-xl">
             <label className="block text-sm font-medium text-slate-700 mb-1">
               Pièce jointe {formData.typeConge === "SICK" && <span className="text-rose-500">(Requis)</span>}

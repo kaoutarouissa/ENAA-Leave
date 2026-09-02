@@ -35,5 +35,11 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password123'),
             'role' => 'rh',
         ]);
+        User::create([
+            'name' => 'Fatima',
+            'email' => 'formateur@enaa.ma',
+            'password' => Hash::make('password123'),
+            'role' => 'formateur',
+        ]);
     }
 }

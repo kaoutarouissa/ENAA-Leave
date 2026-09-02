@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class DemandeConge extends Model
 {
     //
+    protected $fillable = [
+    'user_id',
+    'type_conge',
+    'date_debut',
+    'date_fin',
+    'date_demande',
+    'motif',
+    'statuts',
+    'piece_jointe'
+];
+     protected $table = 'demandes_conge';
     public function employe()
     {
         return $this->belongsTo(User::class, 'user_id');

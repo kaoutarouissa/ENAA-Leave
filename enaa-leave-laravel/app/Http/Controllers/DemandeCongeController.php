@@ -14,7 +14,7 @@ class DemandeCongeController extends Controller
         //
         $demandes = DemandeConge::with([
             'employe',
-            'solution',
+            'solutions',
             'notifications'
         ])->get();
 
@@ -33,9 +33,10 @@ class DemandeCongeController extends Controller
             'type_conge' => 'required|string|max:100',
             'motif' => 'nullable|string|max:255',
             'piece_jointe' => 'nullable|string|max:255',
+            'format_journee' => 'required|in:complete,matin,apres_midi',
         ]);
 
-        $validated['employe_id'] = auth()->id();
+        $validated['user_id'] = auth();
         $validated['date_demande'] = now();
         $validated['status'] = 'en_attente';
 

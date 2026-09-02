@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createDemandeConge, getDemandesConge } from "../../service/api";
-
+import {getSoldes} from "../../service/LeaveService";
 export default function Dashboard() {
   // Formulaire
   const [demande, setDemande] = useState({
@@ -15,7 +15,13 @@ export default function Dashboard() {
   // Historique
   const [demandes, setDemandes] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [soldeConge, setSoldeConge] = useState([]);
+  const congePaye = soldeConge.find(
+  (solde) => solde.type_conge === "PAID"
+);
+const congeMaladie = soldeConge.find(
+  (solde) => solde.type_conge === "SICK"
+);
   // =========================
   // RÉCUPÉRER LES DEMANDES
   // =========================
@@ -34,6 +40,21 @@ export default function Dashboard() {
     }
   };
 
+  // RECUPERER SOLDE
+  useEffect(() => {
+    chargerSoldeConge();
+  }, []);
+
+  const chargerSoldeConge = async () => {
+    try {
+      const data = await getSoldes();
+      setSoldeConge(data);
+    } catch (error) {
+      console.log("Erreur : ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   // =========================
   // CHANGEMENT DES CHAMPS
   // =========================
@@ -112,17 +133,12 @@ export default function Dashboard() {
           </h3>
 
           <div className="flex items-baseline gap-2 mt-4">
-            <span className="text-3xl font-extrabold text-slate-900">18</span>
+            <span className="text-3xl font-extrabold text-slate-900">{congePaye?.jours_restants ?? 0}</span>
 
-            <span className="text-sm text-slate-500">/ 22 Jours</span>
+            <span className="text-sm text-slate-500">/ {congePaye?.jours_disponibles ?? 0}  Jours</span>
           </div>
 
-          <div className="w-full bg-slate-100 rounded-full h-2 mt-3">
-            <div
-              className="bg-emerald-500 h-2 rounded-full"
-              style={{ width: "81%" }}
-            ></div>
-          </div>
+          
         </div>
 
         {/* Maladie */}

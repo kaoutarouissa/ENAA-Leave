@@ -17,7 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/demandes-conge', [DemandeCongeController::class,'store']);
     Route::get('/demandes-conge', [DemandeCongeController::class,'index']);
-    Route::apiResource('soldes-conge', SoldeCongeController::class);
+    Route::post('/soldes-conges', [SoldeCongeController::class, 'store']);
+    Route::get('/soldes-conges', [SoldeCongeController::class, 'index']);
 
 });
 ?>

@@ -19,18 +19,15 @@ export default function Dashboard() {
   const congePaye = soldeConge.find(
   (solde) => solde.type_conge === "PAID"
 );
-const congeMaladie = soldeConge.find(
-  (solde) => solde.type_conge === "SICK"
-);
-  // =========================
-  // RÉCUPÉRER LES DEMANDES
-  // =========================
-  useEffect(() => {
-    chargerDemandes();
-  }, []);
+// =========================
+// RÉCUPÉRER LES DEMANDES
+// =========================
+useEffect(() => {
+  chargerDemandes();
+}, []);
 
-  const chargerDemandes = async () => {
-    try {
+const chargerDemandes = async () => {
+  try {
       const data = await getDemandesConge();
       setDemandes(data);
     } catch (error) {
@@ -64,7 +61,10 @@ const congeMaladie = soldeConge.find(
       [e.target.name]: e.target.value,
     });
   };
-
+  
+  const congeMaladie = soldeConge.find(
+    (solde) => solde.type_conge === "SICK"
+  );
   // =========================
   // FICHIER
   // =========================
